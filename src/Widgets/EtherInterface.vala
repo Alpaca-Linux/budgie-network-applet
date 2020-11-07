@@ -33,10 +33,22 @@ public class Network.EtherInterface : Network.AbstractEtherInterface {
             if (ethernet_item.active && device.get_state () == NM.DeviceState.DISCONNECTED) {
                 var connection = NM.SimpleConnection.new ();
                 var remote_array = device.get_available_connections ();
+                var remote_connection = remote_array.get (0);
+
                 if (remote_array == null) {
                     critical ("Unable to find an ethernet connection to activate");
                 } else {
-                    connection.set_path (remote_array.get (0).get_path ());
+                    if (remote_array.length > 0){
+                        for (var x = 0; x < remote_array.length; ++x){
+                            var a = remote_connection.get_setting_connection ().get_autoconnect_priority ();
+                            var b = remote_array.get (x).get_setting_connection ().get_autoconnect_priority ();
+                            if(a > b){
+                                remote_connection = remote_array.get (x);
+                            }
+                        }
+                    }
+                    
+                    connection.set_path (remote_connection.get_path ());
                     nm_client.activate_connection_async.begin (connection, device, null, null, null);
                 }
             } else if (!ethernet_item.active && device.get_state () == NM.DeviceState.ACTIVATED) {
