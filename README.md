@@ -1,39 +1,16 @@
-# Budgie Network Applet
-This is a fork of [Wingpanel Network Indicator](https://github.com/elementary/wingpanel-indicator-network), ported to budgie desktop
-
-
-![Screenshot](data/screenshot.png?raw=true)
+# Budgie Network Applet (Debian Packaging)
+This is a fork of [Budgie Network Applet](https://github.com/danielpinto8zz6/budgie-network-applet), adding Debian Packaging and some more features
 
 ## Building and Installation
 
-You'll need the following dependencies:
+Use `apt install devscripts libgtk-3-dev libpeas-dev budgie-core-dev valac libnm-dev libnma-dev meson` to install the Build dependencies
 
-* gobject-introspection
-* libnm-dev
-* libnma-dev
-* budgie-1.0
-* meson
-* valac
-* gee-0.8
+    sudo apt install devscripts libgtk-3-dev libpeas-dev budgie-core-dev valac libnm-dev libnma-dev meson
 
-Run `meson` to configure the build environment and then `ninja` to build
+Run `debuild` to build the Debian Package
 
-    meson build --prefix=/usr
-    cd build
-    ninja
+    debuild
 
-To install, use `ninja install`
+To install, use `apt install ../budgie-network-applet*.deb`
 
-    sudo ninja install
-    
-### Arch
-you can install that applet on archlinux with aur : [budgie-network-applet](https://aur.archlinux.org/packages/budgie-network-applet)
-
-### Solus (dependencies)
-```
-sudo eopkg it -c system.devel
-sudo eopkg it budgie-desktop-devel libgtk-3-devel ninja gobject-introspection meson vala network-manager-applet-devel libgee-devel gcc
-```
-## Donation
-
-If you like this applet, you can donate via **[PayPal](https://www.paypal.me/danielpinto8zz6)**. It will help me to spend more time improving this!
+    sudo apt install ../budgie-network-applet*.deb
